@@ -12,7 +12,7 @@ default it collects cpu and docker metrics and publishes to a kafka broker on a 
 ## How to use this image
 
 ```
-docker build docker-collectd
+docker build collectd-with-docker
 
 docker run --privileged \
   --hostname benchmark2 --add-host benchmark1:X.X.X.X \
