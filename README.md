@@ -1,4 +1,4 @@
-# collectd docker image
+# collectd with docker image
 
 ## Description
 
@@ -6,28 +6,18 @@ collectd is a daemon which collects system performance statistics periodically
 and provides mechanisms to store the values in a variety of ways, for example 
 in RRD files.
 
-This image allows you to run collectd in a completelly containerized
-environment
+This image modifies the original image - fr3nd/docker-collectd to support collection of docker metrics by integrating the collectd plugin lebauce/docker-collectd-plugin. The configuration file - collectd.conf can be modified according to the user needs, by
+default it collects cpu and docker metrics and publishes to a kafka broker on a host named benchmark1.
 
 ## How to use this image
 
-Run collectd with the default configuration:
-
 ```
-docker run \
-  --privileged \
-  -v /proc:/mnt/proc:ro \
-  fr3nd/collectd
-```
+docker build docker-collectd
 
-Run collectd with a custom configuration stored in /etc/collect
-
-```
-docker run \
-  --privileged \
-  -v /etc/collectd:/etc/collectd:ro \
-  -v /proc:/mnt/proc:ro \
-  fr3nd/collectd
+docker run --privileged \
+  --hostname benchmark2 --add-host benchmark1:X.X.X.X \
+  -v /proc:/mnt/proc:ro -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /sys/fs/cgroup/:/sys/fs/cgroup:ro <IMAGE_NAME>
 ```
 
 ## FAQ
