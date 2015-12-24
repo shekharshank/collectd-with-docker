@@ -12,12 +12,11 @@ default it collects cpu and docker metrics and publishes to a kafka broker on a 
 ## How to use this image
 
 ```
-docker build collectd-with-docker
 
 docker run --privileged \
   --hostname benchmark2 --add-host benchmark1:X.X.X.X \
   -v /proc:/mnt/proc:ro -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /sys/fs/cgroup/:/sys/fs/cgroup:ro <IMAGE_NAME>
+  -v /sys/fs/cgroup/:/sys/fs/cgroup:ro shashank/collectd-with-docker
 ```
 
 ## FAQ
